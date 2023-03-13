@@ -6,7 +6,7 @@ import data from "../data/launchData";
 
 const SpaceX = () => {
   return (
-    <Stack backgroundColor="skyblue" w="100%" align="center">
+    <Stack bgGradient="linear(to-r, violet, blue)" w="100%" align="center">
       <Stack mt="60px">
         <Text textAlign="center" fontSize="larger" fontWeight="bold" p="30px">
           Upcoming Next launches

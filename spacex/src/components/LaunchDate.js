@@ -25,7 +25,7 @@ const LaunchDate = () => {
     );
   }
   return (
-    <Stack align="center" w="100%">
+    <Stack bgGradient="linear(to-r, #98DFD6, #C8B6A6)" align="center" w="100%">
       <Text textAlign="center" fontSize="larger" fontWeight="bold" p="30px">
         Upcoming:{launchData?.Mission}
       </Text>
