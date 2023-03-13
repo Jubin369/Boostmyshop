@@ -2,17 +2,44 @@ import { Button, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { compareAsc, format } from "date-fns";
 
-import data from "../data/launchData";
-
 const SpaceX = () => {
+  const [launchDates, setLaunchDates] = useState(null);
+
+  useEffect(() => {
+    fetch("https://api.spacexdata.com/v4/launches/upcoming")
+      .then((response) => response.json())
+      .then((data) => {
+        const launchDataSet = data;
+        Promise.all(
+          launchDataSet.map((launchData) =>
+            fetch(
+              `https://api.spacexdata.com/v4/launchpads/${launchData?.launchpad}`
+            )
+          )
+        )
+          .then((resp) => Promise.all(resp.map((r) => r.json())))
+          .then((result) => {
+            const launchDatas = result.map((data, i) => {
+              const launchData = Object.assign(launchDataSet[i], {
+                launchPadName: data?.name,
+              });
+              return launchData;
+            });
+            setLaunchDates(launchDatas);
+          });
+      });
+  }, []);
+
+  console.log("-----------", launchDates);
+
   return (
     <Stack bgGradient="linear(to-r, violet, blue)" w="100%" align="center">
-      <Stack mt="60px">
+      <Stack mt="200px">
         <Text textAlign="center" fontSize="larger" fontWeight="bold" p="30px">
           Upcoming Next launches
         </Text>
       </Stack>
-      <Stack w="70%" m="auto" backgroundColor="blue.700" color="white" p="20px">
+      <Stack w="70%" backgroundColor="blue.700" color="white" p="20px">
         <SimpleGrid columns={3} textAlign="center">
           <Text borderBottom="1px" fontWeight="bold" py="10px">
             Mission
@@ -23,21 +50,21 @@ const SpaceX = () => {
           <Text borderBottom="1px" fontWeight="bold" py="10px">
             Launchpad
           </Text>
-          {data.launchDates.map((launchDate) => (
+          {launchDates?.map((launchDate) => (
             <>
-              <a href={`/launchDate/${launchDate.Mission}`} passHref>
+              <a href={`/launchDate/${launchDate.name}`}>
                 <Text borderBottom="1px" py="5px">
-                  {launchDate.Mission}
+                  {launchDate.name}
                 </Text>
               </a>
-              <a href={`/launchDate/${launchDate.Mission}`} passHref>
+              <a href={`/launchDate/${launchDate.name}`}>
                 <Text borderBottom="1px" py="5px">
-                  {format(new Date(launchDate.Date), "yyyy-MM-dd")}
+                  {format(new Date(launchDate.date_utc), "yyyy-MM-dd")}
                 </Text>
               </a>
-              <a href={`/launchDate/${launchDate.Mission}`} passHref>
+              <a href={`/launchDate/${launchDate.name}`}>
                 <Text borderBottom="1px" py="5px">
-                  {launchDate.Launchpad}
+                  {launchDate.launchPadName}
                 </Text>
               </a>
             </>
