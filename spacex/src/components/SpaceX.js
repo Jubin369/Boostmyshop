@@ -1,6 +1,6 @@
 import { SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
+import { format, add } from "date-fns";
 
 const SpaceX = () => {
   const [launchDates, setLaunchDates] = useState(null);
@@ -22,6 +22,15 @@ const SpaceX = () => {
             const launchDatas = result.map((data, i) => {
               const launchData = Object.assign(launchDataSet[i], {
                 launchPadName: data?.name,
+                addOneYear: add(new Date(launchDataSet[i]?.date_utc), {
+                  years: 1,
+                  months: 0,
+                  weeks: 0,
+                  days: 0,
+                  hours: 0,
+                  minutes: 0,
+                  seconds: 0,
+                }),
               });
               return launchData;
             });
@@ -62,7 +71,7 @@ const SpaceX = () => {
               </a>
               <a href={`/launchDate/${launchDate.id}`}>
                 <Text borderBottom="1px" py="5px">
-                  {format(new Date(launchDate.date_utc), "yyyy-MM-dd")}
+                  {format(new Date(launchDate?.addOneYear), "yyyy-MM-dd")}
                 </Text>
               </a>
               <a href={`/launchDate/${launchDate.id}`}>

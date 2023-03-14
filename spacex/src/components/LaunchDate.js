@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { intervalToDuration, compareAsc } from "date-fns";
+import { intervalToDuration, compareAsc, add } from "date-fns";
 //import data from "../data/launchData";
 
 const LaunchDate = () => {
@@ -12,7 +12,18 @@ const LaunchDate = () => {
     fetch(`https://api.spacexdata.com/v4/launches/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setLaunchDate(data);
+        setLaunchDate({
+          ...data,
+          addOneYear: add(new Date(data?.date_utc), {
+            years: 1,
+            months: 0,
+            weeks: 0,
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+          }),
+        });
         //setLaunchDate({ ...data, date_utc: "2023-03-15T13:41:00.000Z" });
       });
   }, []);
@@ -23,11 +34,11 @@ const LaunchDate = () => {
 
     if (
       launchDate &&
-      compareAsc(new Date(launchDate?.date_utc), todaysDate) > 0
+      compareAsc(new Date(launchDate?.addOneYear), todaysDate) > 0
     ) {
       let date = intervalToDuration({
         start: todaysDate,
-        end: new Date(launchDate?.date_utc),
+        end: new Date(launchDate?.addOneYear),
       });
       setDisplayDate(date);
     }
