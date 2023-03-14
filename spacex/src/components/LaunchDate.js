@@ -33,6 +33,23 @@ const LaunchDate = () => {
     }
   }, [launchDate, displayDate]);
 
+  const ShowTime = ({ text, time }) => {
+    return (
+      <>
+        <Stack>
+          <Text fontWeight="bold" w="80px" m="auto">
+            {time}
+          </Text>
+        </Stack>
+        <Stack pb="20px">
+          <Text border="1px" fontWeight="bold" p="5px" w="80px" m="auto">
+            {text}
+          </Text>
+        </Stack>
+      </>
+    );
+  };
+
   if (!launchDate) {
     return (
       <Stack>
@@ -53,66 +70,12 @@ const LaunchDate = () => {
         p="20px"
         textAlign="center"
       >
-        <Stack>
-          <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.years ?? 0}
-          </Text>
-        </Stack>
-        <Stack pb="20px">
-          <Text border="1px" fontWeight="bold" p="5px" w="80px" m="auto">
-            Years
-          </Text>
-        </Stack>
-        <Stack>
-          <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.months ?? 0}
-          </Text>
-        </Stack>
-        <Stack pb="20px">
-          <Text border="1px" fontWeight="bold" p="5px" w="80px" m="auto">
-            Months
-          </Text>
-        </Stack>
-        <Stack>
-          <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.days ?? 0}
-          </Text>
-        </Stack>
-        <Stack pb="20px">
-          <Text border="1px" fontWeight="bold" p="5px" w="80px" m="auto">
-            Dates
-          </Text>
-        </Stack>
-        <Stack>
-          <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.hours ?? 0}
-          </Text>
-        </Stack>
-        <Stack pb="20px">
-          <Text border="1px" fontWeight="bold" p="5px" w="80px" m="auto">
-            Hours
-          </Text>
-        </Stack>
-        <Stack>
-          <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.minutes ?? 0}
-          </Text>
-        </Stack>
-        <Stack>
-          <Text border="1px" fontWeight="bold" p="5px" w="80px" m="auto">
-            Minutes
-          </Text>
-        </Stack>
-        <Stack>
-          <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.seconds ?? 0}
-          </Text>
-        </Stack>
-        <Stack>
-          <Text border="1px" fontWeight="bold" p="5px" w="80px" m="auto">
-            Seconds
-          </Text>
-        </Stack>
+        <ShowTime text="Years" time={displayDate?.years ?? 0} />
+        <ShowTime text="Months" time={displayDate?.months ?? 0} />
+        <ShowTime text="Days" time={displayDate?.days ?? 0} />
+        <ShowTime text="Hours" time={displayDate?.hours ?? 0} />
+        <ShowTime text="Minutes" time={displayDate?.minutes ?? 0} />
+        <ShowTime text="Seconds" time={displayDate?.seconds ?? 0} />
       </Stack>
     </Stack>
   );
