@@ -65,10 +65,10 @@ const SpaceX = () => {
       bgGradient="linear(to-r, violet, blue)"
       w="100%"
       align="center"
-      minH="100%"
+      minHeight="100vh"
     >
       <Stack mt="200px">
-        <Text textAlign="center" fontSize="larger" fontWeight="bold" p="30px">
+        <Text textAlign="center" fontSize="larger" fontWeight="bold" p="10px">
           Upcoming Next launches
         </Text>
       </Stack>
