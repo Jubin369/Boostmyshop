@@ -118,6 +118,14 @@ const LaunchDate = () => {
         <ShowTime text="Minutes" time={displayDate?.minutes ?? 0} />
         <ShowTime text="Seconds" time={displayDate?.seconds ?? 0} />
       </Stack>
+
+      <a
+        href={`whatsapp://send?text=http://localhost:3000/launchDate/${id}`}
+        data-action="share/whatsapp/share"
+        target="_blank"
+      >
+        <Text textAlign="center"> Share to WhatsApp </Text>
+      </a>
     </Stack>
   );
 };
