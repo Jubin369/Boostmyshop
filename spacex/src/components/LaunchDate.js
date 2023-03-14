@@ -63,8 +63,23 @@ const LaunchDate = () => {
 
   if (!launchDate) {
     return (
-      <Stack>
-        <Text>loading...</Text>
+      <Stack
+        bgGradient="linear(to-r, #62CDFF, #0E8388)"
+        align="center"
+        w="100%"
+        minH="100%"
+      >
+        <Stack
+          w="50%"
+          m="auto"
+          backgroundColor="blue.700"
+          color="white"
+          p="20px"
+          textAlign="center"
+          minH="100%"
+        >
+          <Text>loading...</Text>
+        </Stack>
       </Stack>
     );
   }
