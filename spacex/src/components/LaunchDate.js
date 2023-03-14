@@ -69,7 +69,7 @@ const LaunchDate = () => {
     );
   }
   return (
-    <Stack bgGradient="linear(to-r, #98DFD6, #C8B6A6)" align="center" w="100%">
+    <Stack bgGradient="linear(to-r, #62CDFF, #0E8388)" align="center" w="100%">
       <Text
         textAlign="center"
         fontSize="larger"
