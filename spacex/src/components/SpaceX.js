@@ -1,4 +1,4 @@
-import { SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { SimpleGrid, Stack, Text, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { format, add } from "date-fns";
 
@@ -6,6 +6,8 @@ const SpaceX = () => {
   const [launchDates, setLaunchDates] = useState(null);
 
   const [loading, setLoading] = useState(true);
+
+  const toast = useToast();
 
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/launches/upcoming")
@@ -38,7 +40,23 @@ const SpaceX = () => {
             });
             setLaunchDates(launchDatas);
             setLoading(false);
+          })
+          .catch((error) => {
+            toast({
+              title: `Error: ${error}`,
+              status: "error",
+              isClosable: true,
+            });
+            setLoading(false);
           });
+      })
+      .catch((error) => {
+        toast({
+          title: `Error: ${error}`,
+          status: "error",
+          isClosable: true,
+        });
+        setLoading(false);
       });
   }, []);
 
