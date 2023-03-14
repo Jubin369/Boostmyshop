@@ -72,10 +72,16 @@ const SpaceX = () => {
           Upcoming Next launches
         </Text>
       </Stack>
-      <Stack w="70%" backgroundColor="blue.700" color="white" p="20px">
+      <Stack w="70%" color="white" p="20px">
         {loading && <Text textAlign="center">Loading...</Text>}
         {!loading && (
-          <SimpleGrid columns={3} textAlign="center">
+          <SimpleGrid
+            columns={3}
+            backgroundColor="blue.700"
+            textAlign="center"
+            mb="20px"
+            p="10px"
+          >
             <Text borderBottom="1px" fontWeight="bold" py="10px">
               Mission
             </Text>
