@@ -59,7 +59,13 @@ const LaunchDate = () => {
   }
   return (
     <Stack bgGradient="linear(to-r, #98DFD6, #C8B6A6)" align="center" w="100%">
-      <Text textAlign="center" fontSize="larger" fontWeight="bold" p="30px">
+      <Text
+        textAlign="center"
+        fontSize="larger"
+        fontWeight="bold"
+        p="30px"
+        mt="60px"
+      >
         Upcoming:{launchDate?.name}
       </Text>
       <Stack
