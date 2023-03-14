@@ -1,6 +1,6 @@
-import { Button, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { compareAsc, format } from "date-fns";
+import { format } from "date-fns";
 
 const SpaceX = () => {
   const [launchDates, setLaunchDates] = useState(null);
@@ -30,10 +30,13 @@ const SpaceX = () => {
       });
   }, []);
 
-  console.log("-----------", launchDates);
-
   return (
-    <Stack bgGradient="linear(to-r, violet, blue)" w="100%" align="center">
+    <Stack
+      bgGradient="linear(to-r, violet, blue)"
+      w="100%"
+      align="center"
+      minH="100%"
+    >
       <Stack mt="200px">
         <Text textAlign="center" fontSize="larger" fontWeight="bold" p="30px">
           Upcoming Next launches
@@ -52,17 +55,17 @@ const SpaceX = () => {
           </Text>
           {launchDates?.map((launchDate) => (
             <>
-              <a href={`/launchDate/${launchDate.name}`}>
+              <a href={`/launchDate/${launchDate.id}`}>
                 <Text borderBottom="1px" py="5px">
                   {launchDate.name}
                 </Text>
               </a>
-              <a href={`/launchDate/${launchDate.name}`}>
+              <a href={`/launchDate/${launchDate.id}`}>
                 <Text borderBottom="1px" py="5px">
                   {format(new Date(launchDate.date_utc), "yyyy-MM-dd")}
                 </Text>
               </a>
-              <a href={`/launchDate/${launchDate.name}`}>
+              <a href={`/launchDate/${launchDate.id}`}>
                 <Text borderBottom="1px" py="5px">
                   {launchDate.launchPadName}
                 </Text>

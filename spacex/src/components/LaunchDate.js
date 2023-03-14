@@ -1,33 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { intervalToDuration } from "date-fns";
-import data from "../data/launchData";
+import { intervalToDuration, compareAsc } from "date-fns";
+//import data from "../data/launchData";
 
 const LaunchDate = () => {
   const { id } = useParams();
-  const launchData = data.launchDates.find((a) => a.Mission === id);
+  const [launchDate, setLaunchDate] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://api.spacexdata.com/v4/launches/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setLaunchDate(data);
+        //setLaunchDate({ ...data, date_utc: "2023-03-15T13:41:00.000Z" });
+      });
+  }, []);
   const [displayDate, setDisplayDate] = useState(null);
 
   useEffect(() => {
-    let date = intervalToDuration({
-      start: new Date(),
-      end: new Date(launchData.Date),
-    });
-    setDisplayDate(date);
-  }, [displayDate]);
+    let todaysDate = new Date();
 
-  if (!launchData) {
+    if (
+      launchDate &&
+      compareAsc(new Date(launchDate?.date_utc), todaysDate) > 0
+    ) {
+      let date = intervalToDuration({
+        start: todaysDate,
+        end: new Date(launchDate?.date_utc),
+      });
+      setDisplayDate(date);
+    }
+  }, [launchDate, displayDate]);
+
+  if (!launchDate) {
     return (
       <Stack>
-        <Text>Launch date Not Found</Text>
+        <Text>loading...</Text>
       </Stack>
     );
   }
   return (
     <Stack bgGradient="linear(to-r, #98DFD6, #C8B6A6)" align="center" w="100%">
       <Text textAlign="center" fontSize="larger" fontWeight="bold" p="30px">
-        Upcoming:{launchData?.Mission}
+        Upcoming:{launchDate?.name}
       </Text>
       <Stack
         w="50%"
@@ -39,7 +55,7 @@ const LaunchDate = () => {
       >
         <Stack>
           <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.years}
+            {displayDate?.years ?? 0}
           </Text>
         </Stack>
         <Stack pb="20px">
@@ -49,7 +65,7 @@ const LaunchDate = () => {
         </Stack>
         <Stack>
           <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.months}
+            {displayDate?.months ?? 0}
           </Text>
         </Stack>
         <Stack pb="20px">
@@ -59,7 +75,7 @@ const LaunchDate = () => {
         </Stack>
         <Stack>
           <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.days}
+            {displayDate?.days ?? 0}
           </Text>
         </Stack>
         <Stack pb="20px">
@@ -69,7 +85,7 @@ const LaunchDate = () => {
         </Stack>
         <Stack>
           <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.hours}
+            {displayDate?.hours ?? 0}
           </Text>
         </Stack>
         <Stack pb="20px">
@@ -79,7 +95,7 @@ const LaunchDate = () => {
         </Stack>
         <Stack>
           <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.minutes}
+            {displayDate?.minutes ?? 0}
           </Text>
         </Stack>
         <Stack>
@@ -89,7 +105,7 @@ const LaunchDate = () => {
         </Stack>
         <Stack>
           <Text fontWeight="bold" w="80px" m="auto">
-            {displayDate?.seconds}
+            {displayDate?.seconds ?? 0}
           </Text>
         </Stack>
         <Stack>
