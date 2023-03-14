@@ -99,8 +99,8 @@ const LaunchDate = () => {
         textAlign="center"
         fontSize="larger"
         fontWeight="bold"
-        p="30px"
-        mt="100px"
+        p="10px"
+        mt="30px"
       >
         Upcoming:{launchDate?.name}
       </Text>
@@ -109,7 +109,7 @@ const LaunchDate = () => {
         m="auto"
         backgroundColor="blue.700"
         color="white"
-        p="20px"
+        p="10px"
         textAlign="center"
       >
         <ShowTime text="Years" time={displayDate?.years ?? 0} />
@@ -125,7 +125,7 @@ const LaunchDate = () => {
         data-action="share/whatsapp/share"
         target="_blank"
       >
-        <Stack mb="30px">
+        <Stack mb="20px">
           <MdOutlineWhatsapp color="green" size="30px" />
         </Stack>
       </a>
