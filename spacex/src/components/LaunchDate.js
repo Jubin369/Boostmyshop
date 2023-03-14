@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Stack, Text, useToast } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { intervalToDuration, compareAsc, add } from "date-fns";
+import { MdOutlineWhatsapp } from "react-icons/md";
 //import data from "../data/launchData";
 
 const LaunchDate = () => {
@@ -99,7 +100,7 @@ const LaunchDate = () => {
         fontSize="larger"
         fontWeight="bold"
         p="30px"
-        mt="60px"
+        mt="100px"
       >
         Upcoming:{launchDate?.name}
       </Text>
@@ -124,7 +125,9 @@ const LaunchDate = () => {
         data-action="share/whatsapp/share"
         target="_blank"
       >
-        <Text textAlign="center"> Share to WhatsApp </Text>
+        <Stack mb="30px">
+          <MdOutlineWhatsapp color="green" size="30px" />
+        </Stack>
       </a>
     </Stack>
   );
